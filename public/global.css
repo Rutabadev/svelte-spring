@@ -1,0 +1,36 @@
+:root {
+	--hue: 5;
+	--primary-500: hsl(var(--hue), 85%, 60%);
+	--primary-700: hsl(var(--hue), 85%, 45%);
+	--bg: hsl(var(--hue), 5%, 95%);
+	--text: hsl(var(--hue), 5%, 5%);
+	--duration-bg: 0;   /* reset in ../src/App.svelte */
+	--duration-text: 0; /* reset in ../src/App.svelte */
+}
+
+body.dark {
+	--bg: hsl(var(--hue), 5%, 5%);
+	--text: hsl(var(--hue), 5%, 95%);
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background-color: var(--bg);
+	color: var(--text);
+	font-family: system-ui, serif;
+	box-sizing: border-box;
+	transition: color var(--duration-text), background-color var(--duration-bg);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	margin: 0;
+}
+
+a, ::marker {
+	color: var(--primary-700)
+}
