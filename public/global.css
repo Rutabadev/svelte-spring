@@ -14,6 +14,7 @@
 body.dark {
 	--bg: hsl(var(--hue), 5%, 5%);
 	--text: hsl(var(--hue), 5%, 95%);
+	--shadow-sm: 0 2px 8px hsla(var(--hue), 85%, 45%, 75%)
 }
 
 html, body {
@@ -48,6 +49,7 @@ button {
 	padding: .5rem 1rem;
 	color: var(--gray-50);
 	font-size: 1rem;
+	font-weight: 400;
 }
 
 button:active {

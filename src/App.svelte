@@ -18,28 +18,28 @@
 <main>
 	<h1>Helloooooo I {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-	<ul>
-		<li>item 1</li>
-		<li>item 2</li>
-		<li>item 3</li>
-		<li>item 4</li>
-	</ul>
-	<ol>
-		<li>item 1</li>
-		<li>item 2</li>
-		<li>item 3</li>
-		<li>item 4</li>
-	</ol>
+	<div>
+		<ul>
+			<li>item 1</li>
+			<li>item 2</li>
+			<li>item 3</li>
+			<li>item 4</li>
+		</ul>
+		<ol>
+			<li>item 1</li>
+			<li>item 2</li>
+			<li>item 3</li>
+			<li>item 4</li>
+		</ol>
+	</div>
 
 	<Spring/>
 </main>
 
 <style>
-	h1 {
-		margin-bottom: 1rem;
-	}
-
 	main {
 		padding: 1rem;
+		display: grid;
+		gap: 2rem;
 	}
 </style>
