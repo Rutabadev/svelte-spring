@@ -40,7 +40,7 @@
 <style>
    main {
       margin: auto;
-      padding: 1rem;
+      padding: 2rem;
       display: grid;
       gap: 2rem;
    }
