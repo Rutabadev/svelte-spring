@@ -1,58 +1,71 @@
 :root {
-	--hue: 5;
-	--primary-500: hsl(var(--hue), 85%, 60%);
-	--primary-700: hsl(var(--hue), 85%, 45%);
-	--gray-50: hsl(var(--hue), 5%, 95%);
-	--bg: hsl(var(--hue), 5%, 95%);
-	--text: hsl(var(--hue), 5%, 5%);
-	--duration-bg: 0;   /* reset in ../src/App.svelte */
-	--duration-text: 0; /* reset in ../src/App.svelte */
-	--rounded: .4rem;
-	--shadow-sm: 0 1px 2px hsla(var(--hue), 5%, 5%, 75%)
+   --hue: 5;
+   --primary-500: hsl(var(--hue), 85%, 60%);
+   --primary-700: hsl(var(--hue), 85%, 45%);
+   --gray-50: hsl(var(--hue), 5%, 95%);
+   --bg: hsl(var(--hue), 5%, 95%);
+   --text: hsl(var(--hue), 5%, 5%);
+   --duration-bg: 0; /* reset in ../src/App.svelte */
+   --duration-text: 0; /* reset in ../src/App.svelte */
+   --rounded: 0.4rem;
+   --shadow-sm: 0 1px 2px hsla(var(--hue), 5%, 5%, 75%);
 }
 
 body.dark {
-	--bg: hsl(var(--hue), 5%, 5%);
-	--text: hsl(var(--hue), 5%, 95%);
-	--shadow-sm: 0 2px 8px hsla(var(--hue), 85%, 45%, 75%)
+   --bg: hsl(var(--hue), 5%, 5%);
+   --text: hsl(var(--hue), 5%, 95%);
+   --shadow-sm: 0 2px 8px hsla(var(--hue), 85%, 45%, 75%);
 }
 
-html, body {
-	width: 100%;
-	height: 100%;
+html,
+body {
+   width: 100%;
+   height: 100%;
 }
 
 body {
-	margin: 0;
-	background-color: var(--bg);
-	color: var(--text);
-	font-family: system-ui, serif;
-	box-sizing: border-box;
-	transition: color var(--duration-text), background-color var(--duration-bg);
+   margin: 0;
+   background-color: var(--bg);
+   color: var(--text);
+   font-family: system-ui, serif;
+   box-sizing: border-box;
+   transition: color var(--duration-text), background-color var(--duration-bg);
 }
 
-h1, h2, h3, h4, h5, h6, p {
-	margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+   margin: 0;
 }
 
-a, ::marker {
-	color: var(--primary-700)
+a,
+::marker {
+   color: var(--primary-700);
 }
 
 button {
-	outline-offset: .5rem;
-	border: none;
-	border-radius: var(--rounded);
-	background-color: var(--primary-500);
-	cursor: pointer;
-	box-shadow: var(--shadow-sm);
-	padding: .5rem 1rem;
-	color: var(--gray-50);
-	font-size: 1rem;
-	font-weight: 400;
+   border: none;
 }
 
-button:active {
-	box-shadow: none;
-	transform: translate3d(0, 1px, 0);
+.btn {
+   border-radius: var(--rounded);
+   background-color: var(--primary-500);
+   padding: 0.5rem 1rem;
+
+   color: var(--gray-50);
+   font-size: 1rem;
+   font-weight: 400;
+
+   outline-offset: 0.5rem;
+   box-shadow: var(--shadow-sm);
+   cursor: pointer;
+}
+
+.btn:active {
+   box-shadow: none;
+   transform: translate3d(0, 1px, 0);
 }

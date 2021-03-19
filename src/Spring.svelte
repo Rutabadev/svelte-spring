@@ -56,7 +56,7 @@
       </label>
    </div>
 
-   <button on:click={toggleMove}> Move ball </button>
+   <button class="btn" on:click={toggleMove}> Move ball </button>
 
    <div
       on:click={toggleMove}

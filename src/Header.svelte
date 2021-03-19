@@ -33,5 +33,6 @@
 
    .right-header {
       display: flex;
+      gap: 0.5rem;
    }
 </style>

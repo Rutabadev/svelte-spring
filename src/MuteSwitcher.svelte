@@ -18,8 +18,8 @@
    };
 </script>
 
-<div
-   class="switch"
+<button
+   class="btn switch"
    on:click={handleClick}
    on:contextmenu|preventDefault={resetTheme}
 >
@@ -28,7 +28,8 @@
          xmlns="http://www.w3.org/2000/svg"
          fill="none"
          viewBox="0 0 24 24"
-         stroke="currentColor">
+         stroke="currentColor"
+      >
          <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -48,7 +49,8 @@
          xmlns="http://www.w3.org/2000/svg"
          fill="none"
          viewBox="0 0 24 24"
-         stroke="currentColor">
+         stroke="currentColor"
+      >
          <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -57,13 +59,24 @@
          />
       </svg>
    {/if}
-</div>
+</button>
 
 <style>
    .switch {
       padding: 0.5rem;
-      width: 2rem;
-      height: 2rem;
-      cursor: pointer;
+      width: 2.5rem;
+      height: 2.5rem;
+
+      box-shadow: none;
+      transition: box-shadow var(--duration-bg);
+      outline-offset: 0.2rem;
+   }
+
+   .switch:is(:hover, :focus) {
+      box-shadow: var(--shadow-sm);
+   }
+
+   .switch:active {
+      box-shadow: none;
    }
 </style>
