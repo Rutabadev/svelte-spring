@@ -1,5 +1,5 @@
 <script lang="ts">
-   import { mute } from './stores';
+   import { mute } from '../stores';
 
    const resetTheme = () => {
       if (

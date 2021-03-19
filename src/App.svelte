@@ -1,6 +1,6 @@
 <script lang="ts">
-   import Header from './Header.svelte';
-   import Spring from './Spring.svelte';
+   import Header from './partials/Header.svelte';
+   import Spring from './partials/Spring.svelte';
    import { onMount } from 'svelte';
 
    export let name: string = 'default world';

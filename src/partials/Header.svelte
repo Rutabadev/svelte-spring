@@ -1,6 +1,6 @@
 <script lang="ts">
-   import MuteSwitcher from './MuteSwitcher.svelte';
-   import ThemeSwitcher from './ThemeSwitcher.svelte';
+   import MuteSwitcher from '../components/MuteSwitcher.svelte';
+   import ThemeSwitcher from '../components/ThemeSwitcher.svelte';
 </script>
 
 <header>

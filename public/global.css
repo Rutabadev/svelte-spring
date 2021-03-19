@@ -1,19 +1,31 @@
 :root {
+   /* colors */
    --hue: 5;
    --primary-500: hsl(var(--hue), 85%, 60%);
    --primary-700: hsl(var(--hue), 85%, 45%);
    --gray-50: hsl(var(--hue), 5%, 95%);
    --bg: hsl(var(--hue), 5%, 95%);
    --text: hsl(var(--hue), 5%, 5%);
+   --accent: var(--primary-700);
+
+   /* rounds */
+   --rounded: 0.4rem;
+
+   /* shadows */
+   --shadow-sm: 0 1px 2px hsla(var(--hue), 5%, 5%, 75%);
+
+   /* timings */
    --duration-bg: 0; /* reset in ../src/App.svelte */
    --duration-text: 0; /* reset in ../src/App.svelte */
-   --rounded: 0.4rem;
-   --shadow-sm: 0 1px 2px hsla(var(--hue), 5%, 5%, 75%);
 }
 
 body.dark {
+   /* colors */
    --bg: hsl(var(--hue), 5%, 5%);
    --text: hsl(var(--hue), 5%, 95%);
+   --accent: var(--primary-500);
+
+   /* shadows */
    --shadow-sm: 0 2px 8px hsla(var(--hue), 85%, 45%, 75%);
 }
 
@@ -44,7 +56,7 @@ p {
 
 a,
 ::marker {
-   color: var(--primary-700);
+   color: var(--accent);
 }
 
 button {

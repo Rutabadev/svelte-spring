@@ -1,5 +1,5 @@
 <script lang="ts">
-   import { mute } from './stores';
+   import { mute } from '../stores';
    import { spring } from 'svelte/motion';
 
    const xSpring = spring(0, { stiffness: 0.1, damping: 0.2 });
