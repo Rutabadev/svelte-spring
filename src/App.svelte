@@ -23,16 +23,14 @@
    </p>
    <div>
       <ul>
-         <li>item 1</li>
-         <li>item 2</li>
-         <li>item 3</li>
-         <li>item 4</li>
+         {#each new Array(4) as _item, i}
+            <li>item {i + 1}</li>
+         {/each}
       </ul>
       <ol>
-         <li>item 1</li>
-         <li>item 2</li>
-         <li>item 3</li>
-         <li>item 4</li>
+         {#each new Array(4) as _item, i}
+            <li>item {i + 1}</li>
+         {/each}
       </ol>
    </div>
 
