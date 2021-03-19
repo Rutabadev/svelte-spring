@@ -79,7 +79,7 @@
       gap: 2rem;
    }
 
-   @media (min-width: 470px) {
+   @media (min-width: 480px) {
       .wrapper-grid,
       .sliders-grid {
          place-items: start;
