@@ -58,7 +58,7 @@
 
    <button class="btn" on:click={toggleMove}> Move ball </button>
 
-   <div
+   <button
       on:click={toggleMove}
       class="ball"
       style={`transform: translate3d(${$xSpring}px, 0, 0)`}
@@ -66,14 +66,6 @@
 </div>
 
 <style>
-   .ball {
-      width: 50px;
-      height: 50px;
-      background-color: var(--primary-500);
-      border-radius: 50%;
-      cursor: pointer;
-   }
-
    .wrapper-grid {
       display: grid;
       gap: 2rem;
@@ -98,5 +90,20 @@
       display: grid;
       gap: 0.5rem;
       order: 2;
+   }
+
+   .ball {
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary-500);
+      border-radius: 50%;
+      cursor: pointer;
+
+      outline: none;
+   }
+
+   .ball:focus-visible {
+      outline: auto;
+      outline-offset: 0.5rem;
    }
 </style>
