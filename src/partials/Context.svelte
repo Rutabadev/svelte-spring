@@ -6,8 +6,8 @@
    import { setContext } from 'svelte';
    import { writable } from 'svelte/store';
 
-   import List from '../components/List.svelte';
-   import ListItem from '../components/ListItem.svelte';
+   import List from '../components/context/List.svelte';
+   import ListItem from '../components/context/ListItem.svelte';
 
    const text = writable('item');
    setContext(key, text);
