@@ -1,7 +1,10 @@
 <script lang="ts">
    import { mute } from '../stores';
+import Switch from './Switch.svelte';
 
-   const resetTheme = () => {
+   const audio = new Audio('/light-switch.mp3');
+
+   const resetSound = () => {
       if (
          confirm('Do you want to reset the sound to its default setting (on) ?')
       ) {
@@ -11,18 +14,13 @@
 
    const handleClick = () => {
       if ($mute) {
-         const audio = new Audio('/light-switch.mp3');
          audio.play();
       }
       mute.toggle();
    };
 </script>
 
-<button
-   class="btn switch"
-   on:click={handleClick}
-   on:contextmenu|preventDefault={resetTheme}
->
+<Switch on:click={handleClick} on:contextmenu={resetSound}>
    {#if $mute}
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -59,24 +57,4 @@
          />
       </svg>
    {/if}
-</button>
-
-<style>
-   .switch {
-      padding: 0.5rem;
-      width: 2.5rem;
-      height: 2.5rem;
-
-      box-shadow: none;
-      transition: box-shadow var(--duration-bg);
-      outline-offset: 0.2rem;
-   }
-
-   .switch:is(:hover, :focus) {
-      box-shadow: var(--shadow-sm);
-   }
-
-   .switch:active {
-      box-shadow: none;
-   }
-</style>
+</Switch>

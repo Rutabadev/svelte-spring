@@ -1,5 +1,8 @@
 <script lang="ts">
    import { darkTheme, mute } from '../stores';
+import Switch from './Switch.svelte';
+
+   const audio = new Audio('/light-switch.mp3');
 
    const resetTheme = () => {
       if (
@@ -13,7 +16,6 @@
 
    const handleClick = () => {
       if (!$mute) {
-         const audio = new Audio('/light-switch.mp3');
          audio.play();
       }
       darkTheme.toggle();
@@ -25,11 +27,7 @@
       <meta name="color-scheme" content="dark light" />
    {/if}
 </svelte:head>
-<button
-   class="btn switch"
-   on:click={handleClick}
-   on:contextmenu|preventDefault={resetTheme}
->
+<Switch on:click={handleClick} on:contextmenu={resetTheme}>
    {#if $darkTheme}
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -53,24 +51,4 @@
          />
       </svg>
    {/if}
-</button>
-
-<style>
-   .switch {
-      padding: 0.5rem;
-      width: 2.5rem;
-      height: 2.5rem;
-
-      box-shadow: none;
-      transition: box-shadow var(--duration-bg);
-      outline-offset: 0.2rem;
-   }
-
-   .switch:is(:hover, :focus) {
-      box-shadow: var(--shadow-sm);
-   }
-
-   .switch:active {
-      box-shadow: none;
-   }
-</style>
+</Switch>
