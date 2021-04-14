@@ -13,6 +13,8 @@
 </script>
 
 <ul
+   on:mouseenter
+   on:mouseleave
    on:click={() => {
       currentColorId = (currentColorId + 1) % colors.length;
       $color = colors[currentColorId];

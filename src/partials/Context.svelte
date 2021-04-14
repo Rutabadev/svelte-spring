@@ -13,7 +13,7 @@
    setContext(key, text);
 </script>
 
-<div
+<List
    on:mouseenter={() => {
       $text = 'hovered';
    }}
@@ -21,12 +21,10 @@
       $text = 'item';
    }}
 >
-   <List>
-      {#each Array(4) as _item, i}
-         <ListItem>{$text} {i + 1}</ListItem>
-      {/each}
-   </List>
-</div>
+   {#each Array(4) as _item, i}
+      <ListItem>{$text} {i + 1}</ListItem>
+   {/each}
+</List>
 
 <List>
    {#each Array(4) as _item, i}
