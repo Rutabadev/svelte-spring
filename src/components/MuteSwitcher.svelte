@@ -1,6 +1,6 @@
 <script lang="ts">
    import { mute } from '../stores';
-import Switch from './Switch.svelte';
+   import Switch from './Switch.svelte';
 
    const audio = new Audio('/light-switch.mp3');
 
