@@ -2,8 +2,6 @@
    import { darkTheme, mute } from '../stores';
    import Switch from './Switch.svelte';
 
-   const audio = new Audio('/light-switch.mp3');
-
    const resetTheme = () => {
       if (
          confirm(
@@ -16,6 +14,7 @@
 
    const handleClick = () => {
       if (!$mute) {
+         const audio = new Audio('/light-switch.mp3');
          audio.play();
       }
       darkTheme.toggle();

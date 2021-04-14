@@ -2,11 +2,11 @@
    import { mute } from '../stores';
    import { spring } from 'svelte/motion';
 
-   const audio = new Audio('/ball.mp3');
    const xSpring = spring(0, { stiffness: 0.1, damping: 0.2 });
 
    const toggleMove = () => {
       if (!$mute) {
+         const audio = new Audio('/ball.mp3');
          audio.volume = 0.1;
          audio.play();
       }
