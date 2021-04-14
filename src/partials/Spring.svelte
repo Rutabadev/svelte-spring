@@ -10,7 +10,7 @@
          audio.volume = 0.1;
          audio.play();
       }
-      xSpring.update((x) => (x ? 0 : Math.min(window.innerWidth - 100, 500)));
+      xSpring.update((x) => (x ? 0 : Math.min(window.innerWidth - 132, 500)));
    };
 </script>
 
@@ -89,7 +89,6 @@
    label {
       display: grid;
       gap: 0.5rem;
-      order: 2;
    }
 
    .ball {
