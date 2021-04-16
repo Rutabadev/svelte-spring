@@ -9,38 +9,46 @@
          audio.volume = 0.1;
          audio.play();
       }
-   }
+   };
 
    let ball: HTMLButtonElement;
-   let position = spring({x: 0, y: 0}, { stiffness: 0.1, damping: 0.2 })
+   let position = spring({ x: 0, y: 0 }, { stiffness: 0.1, damping: 0.2 });
    onMount(() => {
       $position.y = ball.getBoundingClientRect().y;
-   })
+   });
 
    const toggleMove = () => {
       playSoundIfNeeded();
-      position.update(({x,y}) => (x ? {x: 0, y} : {x: Math.min(window.innerWidth - 132, 500), y}));
+      position.update(({ x, y }) => (x ? { x: 0, y } : { x: 100, y }));
    };
 
    let followButton: HTMLButtonElement;
-   const updatePosition = (e: MouseEvent) => position.set({x: e.clientX, y: e.clientY});
+   const updatePosition = (e: MouseEvent) =>
+      position.set({ x: e.clientX, y: e.clientY });
    const startFollow = () => {
       playSoundIfNeeded();
       ballState = 'follow';
-      position.set({x: followButton.getBoundingClientRect().x + followButton.offsetWidth / 2, y: followButton.getBoundingClientRect().y + followButton.offsetHeight / 2})
+      position.set({
+         x:
+            followButton.getBoundingClientRect().x +
+            followButton.offsetWidth / 2,
+         y:
+            followButton.getBoundingClientRect().y +
+            followButton.offsetHeight / 2,
+      });
       document.addEventListener('mousemove', updatePosition);
-   }
+   };
 
    let ballState: 'move' | 'follow' = 'move';
    const ballActions = {
       move: toggleMove,
       follow: () => {
          playSoundIfNeeded();
-         ballState = 'move'; 
-         document.removeEventListener('mousemove', updatePosition)
+         ballState = 'move';
+         document.removeEventListener('mousemove', updatePosition);
          $position.x = 0;
-      }
-   }
+      },
+   };
 </script>
 
 <div class="wrapper-grid">
@@ -87,27 +95,32 @@
 
    <div class="controls">
       <button class="btn" on:click={toggleMove}>Move ball</button>
-      <button class="btn" on:click={startFollow} bind:this={followButton}>Follow cursor</button>
+      <button class="btn" on:click={startFollow} bind:this={followButton}
+         >Follow cursor</button
+      >
    </div>
 
-   <button
-      class="ball"
-      style={
-         ballState === 'move'
-            ? `transform: translate3d(${$position.x}px, 0, 0)`
+   <div class="ball-container">
+      <button
+         class="ball"
+         style={ballState === 'move'
+            ? `left: ${$position.x}%`
             : `--opacity: 0.5;
                backdrop-filter: blur(2px);
                position: fixed; 
                left: ${$position.x}px;
                top: ${$position.y}px;
-               transform: translate3d(-50%, -50%, 0)`
-      }
-      on:click={ballActions[ballState]}
-      bind:this={ball}
-   />
+               transform: translate3d(-50%, -50%, 0)`}
+         on:click={ballActions[ballState]}
+         bind:this={ball}
+      />
+   </div>
 </div>
 
 <style>
+   :root {
+      --ball-size: 50px;
+   }
    .wrapper-grid {
       display: grid;
       gap: 2rem;
@@ -133,9 +146,21 @@
       gap: 0.5rem;
    }
 
+   .controls {
+      display: flex;
+      gap: 2rem;
+   }
+
+   .ball-container {
+      position: relative;
+      width: calc(100% - var(--ball-size));
+      height: var(--ball-size);
+   }
+
    .ball {
-      width: 50px;
-      height: 50px;
+      position: absolute;
+      width: var(--ball-size);
+      height: var(--ball-size);
       border-radius: 50%;
       /* This is the equivalent to this, that is strangely not working */
       /* background-color: var(--primary-500); */
@@ -143,11 +168,6 @@
 
       cursor: pointer;
       outline: none;
-   }
-
-   .controls {
-      display: flex;
-      gap: 2rem;
    }
 
    .ball:focus-visible {
