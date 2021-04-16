@@ -2,8 +2,9 @@
    import { mute } from '../stores';
    import { spring } from 'svelte/motion';
 
-   const xSpring = spring(0, { stiffness: 0.1, damping: 0.2 });
+   let springParams = { stiffness: 0.1, damping: 0.2, precision: 0.01 };
 
+   const xSpring = spring(0, springParams);
    const toggleMove = () => {
       if (!$mute) {
          const audio = new Audio('/ball.mp3');
@@ -12,12 +13,46 @@
       }
       xSpring.update((x) => (x ? 0 : Math.min(window.innerWidth - 132, 500)));
    };
+
+   let position = spring({x: 0, y: 0}, springParams);
+   document.addEventListener('mousemove', e => {
+      position.set({x: e.clientX, y: e.clientY});
+   })
+
+   let springParams2 = {
+      _stiffness: 0.1, _damping: 0.2, _precision: 0.01,
+      get stiffness() { return this._stiffness},
+      set stiffness(stiffness) { 
+         this._stiffness = stiffness;
+         xSpring.stiffness = stiffness;
+         position.stiffness = stiffness;
+      },
+      get damping() { return this._damping},
+      set damping(damping) { 
+         this._damping = damping;
+         xSpring.damping = damping;
+         position.damping = damping;
+      },
+      get precision() { return this._precision},
+      set precision(precision) { 
+         this._precision = precision;
+         xSpring.precision = precision;
+         position.precision = precision;
+      },
+   }
+
+   let ballState: 'move' | 'follow' = 'move';
+   const ballActions = {
+      move: toggleMove,
+      follow: () => ballState = 'move'
+   }
+
 </script>
 
 <div class="wrapper-grid">
    <div class="sliders-grid">
       <label for="stiffness">
-         Stiffness: {xSpring.stiffness}
+         Stiffness: {springParams2.stiffness}
          <input
             type="range"
             id="stiffness"
@@ -25,12 +60,12 @@
             min="0"
             max="1"
             step=".01"
-            bind:value={xSpring.stiffness}
+            bind:value={springParams2.stiffness}
          />
       </label>
 
       <label for="damping">
-         Damping: {xSpring.damping}
+         Damping: {springParams2.damping}
          <input
             type="range"
             id="damping"
@@ -38,30 +73,42 @@
             min="0"
             max="1"
             step=".01"
-            bind:value={xSpring.damping}
+            bind:value={springParams2.damping}
          />
       </label>
 
       <label for="precision">
-         Precision: {xSpring.precision}
+         Precision: {springParams2.precision}
          <input
             type="range"
             id="precision"
             name="stiffness"
             min="0"
-            max="1"
+            max="3"
             step=".01"
-            bind:value={xSpring.precision}
+            bind:value={springParams2.precision}
          />
       </label>
    </div>
 
-   <button class="btn" on:click={toggleMove}> Move ball </button>
+   <div class="controls">
+      <button class="btn" on:click={toggleMove}>Move ball</button>
+      <button class="btn" on:click={() => ballState = 'follow'}>Follow cursor</button>
+   </div>
 
    <button
       class="ball"
-      style={`transform: translate3d(${$xSpring}px, 0, 0)`}
-      on:click={toggleMove}
+      style={
+         ballState === 'move'
+            ? `transform: translate3d(${$xSpring}px, 0, 0)`
+            : `--opacity: 0.5;
+               backdrop-filter: blur(2px);
+               position: fixed; 
+               left: ${$position.x}px;
+               top: ${$position.y}px;
+               transform: translate3d(-50%, -50%, 0)`
+      }
+      on:click={ballActions[ballState]}
    />
 </div>
 
@@ -95,14 +142,17 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      --opacity: 0.5;
-      background-color: hsla(var(--hue), 85%, 60%, var(--opacity));
       /* This is the equivalent to this, that is strangely not working */
       /* background-color: var(--primary-500); */
-      backdrop-filter: blur(2px);
+      background-color: hsla(var(--hue), 85%, 60%, var(--opacity));
 
       cursor: pointer;
       outline: none;
+   }
+
+   .controls {
+      display: flex;
+      gap: 2rem;
    }
 
    .ball:focus-visible {
