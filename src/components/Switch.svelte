@@ -18,10 +18,11 @@
    }
 
    .switch:is(:hover, :focus) {
-      box-shadow: var(--shadow-light-sm);
+      box-shadow: var(--shadow-md);
    }
 
    .switch:active {
       box-shadow: none;
+      transition: none;
    }
 </style>
