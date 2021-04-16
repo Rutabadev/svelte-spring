@@ -3,21 +3,29 @@
    import { spring } from 'svelte/motion';
    import { onMount } from 'svelte';
 
-   let ball: HTMLButtonElement;
-   let position = spring({x: 0, y: 0}, { stiffness: 0.1, damping: 0.2 })
-   const toggleMove = () => {
+   const playSoundIfNeeded = () => {
       if (!$mute) {
          const audio = new Audio('/ball.mp3');
          audio.volume = 0.1;
          audio.play();
       }
+   }
+
+   let ball: HTMLButtonElement;
+   let position = spring({x: 0, y: 0}, { stiffness: 0.1, damping: 0.2 })
+   onMount(() => {
+      $position.y = ball.getBoundingClientRect().y;
+   })
+
+   const toggleMove = () => {
+      playSoundIfNeeded();
       position.update(({x,y}) => (x ? {x: 0, y} : {x: Math.min(window.innerWidth - 132, 500), y}));
    };
 
    let followButton: HTMLButtonElement;
    const updatePosition = (e: MouseEvent) => position.set({x: e.clientX, y: e.clientY});
-
    const startFollow = () => {
+      playSoundIfNeeded();
       ballState = 'follow';
       position.set({x: followButton.getBoundingClientRect().x + followButton.offsetWidth / 2, y: followButton.getBoundingClientRect().y + followButton.offsetHeight / 2})
       document.addEventListener('mousemove', updatePosition);
@@ -27,16 +35,12 @@
    const ballActions = {
       move: toggleMove,
       follow: () => {
+         playSoundIfNeeded();
          ballState = 'move'; 
          document.removeEventListener('mousemove', updatePosition)
          $position.x = 0;
       }
    }
-
-   onMount(() => {
-      $position.y = ball.getBoundingClientRect().y;
-   })
-
 </script>
 
 <div class="wrapper-grid">
