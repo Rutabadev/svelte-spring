@@ -2,8 +2,6 @@
    import { mute } from '../stores';
    import Switch from './Switch.svelte';
 
-   const audio = new Audio('/light-switch.mp3');
-
    const resetSound = () => {
       if (
          confirm('Do you want to reset the sound to its default setting (on) ?')
@@ -14,6 +12,7 @@
 
    const handleClick = () => {
       if ($mute) {
+         const audio = new Audio('/light-switch.mp3');
          audio.play();
       }
       mute.toggle();

@@ -10,7 +10,7 @@
          audio.volume = 0.1;
          audio.play();
       }
-      xSpring.update((x) => (x ? 0 : Math.min(window.innerWidth - 100, 500)));
+      xSpring.update((x) => (x ? 0 : Math.min(window.innerWidth - 132, 500)));
    };
 </script>
 
@@ -59,9 +59,9 @@
    <button class="btn" on:click={toggleMove}> Move ball </button>
 
    <button
-      on:click={toggleMove}
       class="ball"
       style={`transform: translate3d(${$xSpring}px, 0, 0)`}
+      on:click={toggleMove}
    />
 </div>
 
@@ -89,16 +89,19 @@
    label {
       display: grid;
       gap: 0.5rem;
-      order: 2;
    }
 
    .ball {
       width: 50px;
       height: 50px;
-      background-color: var(--primary-500);
       border-radius: 50%;
-      cursor: pointer;
+      --opacity: 0.5;
+      background-color: hsla(var(--hue), 85%, 60%, var(--opacity));
+      /* This is the equivalent to this, that is strangely not working */
+      /* background-color: var(--primary-500); */
+      backdrop-filter: blur(2px);
 
+      cursor: pointer;
       outline: none;
    }
 

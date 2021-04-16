@@ -1,12 +1,14 @@
 :root {
+   --opacity: 1;
+
    /* colors */
    --hue: 5;
-   --primary-500: hsl(var(--hue), 85%, 60%);
-   --primary-700: hsl(var(--hue), 85%, 45%);
-   --gray-50: hsl(var(--hue), 5%, 95%);
-   --bg: hsl(var(--hue), 5%, 95%);
-   --text: hsl(var(--hue), 5%, 5%);
-   --accent: var(--primary-700);
+   --primary-500: hsla(var(--hue), 85%, 60%, var(--opacity));
+   --primary-700: hsla(var(--hue), 85%, 45%, var(--opacity));
+   --gray-50: hsla(var(--hue), 5%, 95%, var(--opacity));
+   --bg: hsla(var(--hue), 5%, 95%, var(--opacity));
+   --text: hsla(var(--hue), 5%, 5%, var(--opacity));
+   --accent: var(--primary-700, var(--opacity));
 
    /* rounds */
    --rounded: 0.4rem;
