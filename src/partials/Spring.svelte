@@ -1,58 +1,48 @@
 <script lang="ts">
    import { mute } from '../stores';
    import { spring } from 'svelte/motion';
+   import { onMount } from 'svelte';
 
-   let springParams = { stiffness: 0.1, damping: 0.2, precision: 0.01 };
-
-   const xSpring = spring(0, springParams);
+   let ball: HTMLButtonElement;
+   let position = spring({x: 0, y: 0}, { stiffness: 0.1, damping: 0.2 })
    const toggleMove = () => {
       if (!$mute) {
          const audio = new Audio('/ball.mp3');
          audio.volume = 0.1;
          audio.play();
       }
-      xSpring.update((x) => (x ? 0 : Math.min(window.innerWidth - 132, 500)));
+      position.update(({x,y}) => (x ? {x: 0, y} : {x: Math.min(window.innerWidth - 132, 500), y}));
    };
 
-   let position = spring({x: 0, y: 0}, springParams);
-   document.addEventListener('mousemove', e => {
-      position.set({x: e.clientX, y: e.clientY});
-   })
+   let followButton: HTMLButtonElement;
+   const updatePosition = (e: MouseEvent) => position.set({x: e.clientX, y: e.clientY});
 
-   let springParams2 = {
-      _stiffness: 0.1, _damping: 0.2, _precision: 0.01,
-      get stiffness() { return this._stiffness},
-      set stiffness(stiffness) { 
-         this._stiffness = stiffness;
-         xSpring.stiffness = stiffness;
-         position.stiffness = stiffness;
-      },
-      get damping() { return this._damping},
-      set damping(damping) { 
-         this._damping = damping;
-         xSpring.damping = damping;
-         position.damping = damping;
-      },
-      get precision() { return this._precision},
-      set precision(precision) { 
-         this._precision = precision;
-         xSpring.precision = precision;
-         position.precision = precision;
-      },
+   const startFollow = () => {
+      ballState = 'follow';
+      position.set({x: followButton.getBoundingClientRect().x + followButton.offsetWidth / 2, y: followButton.getBoundingClientRect().y + followButton.offsetHeight / 2})
+      document.addEventListener('mousemove', updatePosition);
    }
 
    let ballState: 'move' | 'follow' = 'move';
    const ballActions = {
       move: toggleMove,
-      follow: () => ballState = 'move'
+      follow: () => {
+         ballState = 'move'; 
+         document.removeEventListener('mousemove', updatePosition)
+         $position.x = 0;
+      }
    }
+
+   onMount(() => {
+      $position.y = ball.getBoundingClientRect().y;
+   })
 
 </script>
 
 <div class="wrapper-grid">
    <div class="sliders-grid">
       <label for="stiffness">
-         Stiffness: {springParams2.stiffness}
+         Stiffness: {position.stiffness}
          <input
             type="range"
             id="stiffness"
@@ -60,12 +50,12 @@
             min="0"
             max="1"
             step=".01"
-            bind:value={springParams2.stiffness}
+            bind:value={position.stiffness}
          />
       </label>
 
       <label for="damping">
-         Damping: {springParams2.damping}
+         Damping: {position.damping}
          <input
             type="range"
             id="damping"
@@ -73,12 +63,12 @@
             min="0"
             max="1"
             step=".01"
-            bind:value={springParams2.damping}
+            bind:value={position.damping}
          />
       </label>
 
       <label for="precision">
-         Precision: {springParams2.precision}
+         Precision: {position.precision}
          <input
             type="range"
             id="precision"
@@ -86,21 +76,21 @@
             min="0"
             max="3"
             step=".01"
-            bind:value={springParams2.precision}
+            bind:value={position.precision}
          />
       </label>
    </div>
 
    <div class="controls">
       <button class="btn" on:click={toggleMove}>Move ball</button>
-      <button class="btn" on:click={() => ballState = 'follow'}>Follow cursor</button>
+      <button class="btn" on:click={startFollow} bind:this={followButton}>Follow cursor</button>
    </div>
 
    <button
       class="ball"
       style={
          ballState === 'move'
-            ? `transform: translate3d(${$xSpring}px, 0, 0)`
+            ? `transform: translate3d(${$position.x}px, 0, 0)`
             : `--opacity: 0.5;
                backdrop-filter: blur(2px);
                position: fixed; 
@@ -109,6 +99,7 @@
                transform: translate3d(-50%, -50%, 0)`
       }
       on:click={ballActions[ballState]}
+      bind:this={ball}
    />
 </div>
 
